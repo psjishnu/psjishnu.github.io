@@ -9,9 +9,20 @@
       rel="stylesheet"
     />
     <link rel="icon" href="favicon.png" type="image/png" sizes="256x256" />
+    <style>
+      .line {
+        background: lightblue;
+        height: 7px;
+        border-radius: 3px;
+        width: 0%;
+        position: fixed;
+        top: 0;
+      }
+    </style>
   </head>
   <body>
     <div>
+      <div class="line" id="scrollIndicator"></div>
       <div
         style="
           background-color: #ff4e00;
@@ -321,6 +332,15 @@
         $("html, body").animate({ scrollTop: 0 }, "fast");
       }
       window.onload = scrollup;
+      window.addEventListener("scroll", moveScrollIndicator);
+      const scrollIndicatorElt = document.getElementById("scrollIndicator");
+      const maxScrollableHeight =
+        window.document.body.scrollHeight - window.innerHeight;
+
+      function moveScrollIndicator(e) {
+        const percentage = (window.scrollY / maxScrollableHeight) * 100;
+        scrollIndicatorElt.style.width = percentage + "%";
+      }
     </script>
   </body>
 </html>
